@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <title>Exactspace</title>
+</head>
+<body>
+    <div class="nav">
+        <h2>EXACTSPACE</h2>
+    </div>
+    <div class="main">
+        <div class="box-1">
+            <h4>Enter the data in JSON format</h4>
+            <textarea id="jsontext" ></textarea>
+            <br>
+            <button id="submit">SUBMIT</button>
+        </div>
+        <div class="box-2"></div>
+    </div>
+</body>
+</html>
+
+<script>
+    let button = document.getElementById("submit")
+    button.addEventListener("click", ()=>{
+        let data = document.getElementById("jsontext").value;
+        try {
+            const parsedData = JSON.parse(data);
+            postTheData(data)
+        } catch (error) {
+            alert("Not valid JSON, Please enter valid format")
+        }
+    })
+
+    async function postTheData(data){
+        try {
+            let response = await fetch("http://localhost:3000/api" ,{
+                method: "POST",
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: data
+            })
+
+            if(response.ok){
+                let responseData = await response.json();
+                renderJsonData(responseData);
+            }
+        } catch (error) {
+            alert(`something went wrong! Error: ${error}`)
+        }
+    }
+
+    // render json data
+    function renderJsonData(jsonData){
+        let dataBox = document.querySelector(".box-2");
+        dataBox.innerHTML = "";
+        
+        let allContent = document.createElement("div") 
+
+        for(let key in jsonData){
+            let content = document.createElement("div")
+            content.innerHTML = `<div>${key}</div> <div> ${jsonData[key]}</div>`
+            allContent.appendChild(content)
+        }
+
+        dataBox.appendChild(allContent)
+
+    };
+</script>

@@ -22,7 +22,6 @@ h2 {
     margin-top: 70px;
     display: flex;
     justify-content: space-evenly;
-
 }
 
 .box-1 {
@@ -50,6 +49,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 4px;
 }
 
 .box-2>div {
@@ -67,7 +67,6 @@ button {
 
 .box-2>div>div>div:nth-child(1){
     width: 40%;
-    font-weight: 700;
     color: red;
 }
 

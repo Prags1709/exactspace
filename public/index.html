@@ -17,13 +17,18 @@
             <br>
             <button id="submit">SUBMIT</button>
         </div>
+        <div class="spinner"></div>
         <div class="box-2"></div>
     </div>
 </body>
 </html>
 
 <script>
-    let button = document.getElementById("submit")
+    let button = document.getElementById("submit");
+
+    let spin = document.querySelector(".spinner");
+    spin.style.display = "none";
+
     button.addEventListener("click", ()=>{
         let data = document.getElementById("jsontext").value;
         try {
@@ -35,6 +40,7 @@
     })
 
     async function postTheData(data){
+        spin.style.display = "block"
         try {
             let response = await fetch("https://extraspace-64nj.onrender.com/api" ,{
                 method: "POST",
@@ -55,6 +61,8 @@
 
     // render json data
     function renderJsonData(jsonData){
+        spin.style.display = "none";
+
         let dataBox = document.querySelector(".box-2");
         dataBox.innerHTML = "";
         
